@@ -8,7 +8,7 @@ var data = {
 	otherUser: { email: 'another.user@email.com', password: hash.generate('password2') }
 } 
 
-describe('\"UJ2\" DELETE /contract', function() {
+describe('\"UJ4\" DELETE /contract', function() {
 	before(function(done) {
 		prepare(function() { done() })
 	})
