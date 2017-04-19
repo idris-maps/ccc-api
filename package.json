@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "jsonwebtoken": "^7.3.0",
     "password-hash": "^1.2.2",
     "sequelize": "^3.30.4",
     "sqlite3": "^3.1.8"

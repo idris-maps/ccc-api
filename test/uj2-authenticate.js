@@ -1,5 +1,6 @@
 var request = require('supertest')
 var app = require('../server')
+var hash = require('password-hash')
 
 describe('\"UJ2\" POST /authenticate', function() {
 	before(function(done) {
@@ -45,13 +46,24 @@ describe('\"UJ2\" POST /authenticate', function() {
 			.expect(400)
 			.end(done)
 	})
-	it('should return a token')
+	it('should return a token', function(done) {
+		request(app)
+			.post('/authenticate')
+			.type('json')
+			.send({ email: 'existing@email.com', password: 'password' })
+			.expect(200)
+			.end(function(err, res) {
+				if(err) { done(err) }
+				else if(!res.body.token) { done(new Error('Does not return token')) }
+				else { done() }
+			})
+	})
 })
 
 function prepare(callback) {
 	var User = require('../lib/models').model().user
 	User.truncate().then(function() {
-		User.create({ email: 'existing@email.com', password: 'password' })
+		User.create({ email: 'existing@email.com', password: hash.generate('password') })
 		.then(function() { console.log('Done preparing'); callback() })
 		.catch(function(err) { console.log('Error creating User', err) })
 	})
