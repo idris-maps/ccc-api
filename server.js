@@ -3,7 +3,9 @@ var app = express()
 var bodyParser = require('body-parser')
 var models = require('./lib/models')
 var routes = require('./lib/routes')
+var helmet = require('helmet')
 
+app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
