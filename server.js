@@ -14,7 +14,7 @@ var port = +process.env.PORT || 3000
 var dev = true
 if(process.env.DEV === 'false') { dev = false }
 
-models.init(true, function() {
+models.init(dev, function() {
 	app.listen(port, function() {
 		console.log('Server started on port ' + port)
 		app.emit('ready')
