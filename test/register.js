@@ -6,7 +6,7 @@ describe('POST /register', function() {
 		app.on('ready', function() {
 			var User = require('../lib/models').model().user
 			User.create({
-				email: 'existing@mail.com', password: 'password'
+				email: 'existing@email.com', password: 'password'
 			}).then(function() {
 				done()
 			})
@@ -40,9 +40,20 @@ describe('POST /register', function() {
 		request(app)
 			.post('/register')
 			.type('json')
-			.send({ email: 'existing@mail.com', password: 'password'})
+			.send({ email: 'existing@email.com', password: 'password'})
 			.expect(400)
 			.end(done)
 	})
-	it('should return id')
+	it('should return id', function(done) {
+		request(app)
+			.post('/register')
+			.type('json')
+			.send({ email: 'new@email.com', password: 'password'})
+			.expect(200)
+			.end(function(err, res) {
+				if(err) { done(err) }
+				else if(res.body.id) { done() }
+				else { done(new Error('Does not return id')) }
+			})	
+	})
 })
