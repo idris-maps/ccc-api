@@ -1,7 +1,7 @@
 var request = require('supertest')
 var app = require('../server')
 
-describe('POST /register', function() {
+describe('\"UJ1\" POST /register', function() {
 	before(function(done) {
 		app.on('ready', function() {
 			var User = require('../lib/models').model().user
