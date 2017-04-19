@@ -37,7 +37,14 @@ describe('\"UJ2\" POST /authenticate', function() {
 			.expect(400)
 			.end(done)
 	})
-	it('should reject wrong password')
+	it('should reject wrong password', function(done) {
+		request(app)
+			.post('/authenticate')
+			.type('json')
+			.send({ email: 'existing@email.com', password: 'wrong-password'})
+			.expect(400)
+			.end(done)
+	})
 	it('should return a token')
 })
 
