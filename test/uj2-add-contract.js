@@ -44,8 +44,23 @@ describe('\"UJ2\" POST /contract', function() {
 			.expect(400)
 			.end(done)
 	})
-	it('should not return contracts from another user')
-	it('should return userId/title/company/price')
+	it('should return userId/id/title/company/price', function(done) {
+		request(app)
+			.post('/contract')
+			.set('x-access-token', token)
+			.type('json')
+			.send({ title: 'contract-4', company: 'X', price: 120 })
+			.expect(200)
+			.end(function(err, res) {
+				if(err) { done(err) }
+				else if(!res.body.userId) { done(new Error('Missing userId')) }
+				else if(!res.body.id) { done(new Error('Missing contract id')) }			
+				else if(!res.body.title) { done(new Error('Missing title')) }
+				else if(!res.body.company) { done(new Error('Missing company')) }
+				else if(!res.body.price) { done(new Error('Missing price')) }
+				else { done() }
+			})
+	})
 })
 
 function prepare(callback) {
