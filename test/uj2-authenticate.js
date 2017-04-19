@@ -64,7 +64,7 @@ function prepare(callback) {
 	var User = require('../lib/models').model().user
 	User.truncate().then(function() {
 		User.create({ email: 'existing@email.com', password: hash.generate('password') })
-		.then(function() { console.log('Done preparing'); callback() })
+		.then(function() { callback() })
 		.catch(function(err) { console.log('Error creating User', err) })
 	})
 }
