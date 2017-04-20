@@ -39,10 +39,10 @@ describe('\"UJ3\" PUT /contract', function() {
 			.end(function(err, res) {
 				if(err) { done(err) }
 				else if(res.body.title !== 'new title') { done(new Error('Title was not changed')) }
-				else if(!res.body.userId) { done(new Error('Missing userId')) }
-				else if(!res.body.id) { done(new Error('Missing id')) }
-				else if(!res.body.company) { done(new Error('Missing company')) }
-				else if(!res.body.price) { done(new Error('Missing price')) }
+				else if(res.body.userId !== data.user.id) { done(new Error('Wrong userId')) }
+				else if(res.body.id !== data.user.contractId) { done(new Error('Wrong contractId')) }
+				else if(res.body.company !== 'X') { done(new Error('Wrong company')) }
+				else if(res.body.price !== 12.50) { done(new Error('Wrong price')) }
 				else { done() }
 			})
 	})
